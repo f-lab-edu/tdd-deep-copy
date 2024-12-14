@@ -1,11 +1,19 @@
 import deepCopy from "../src/index";
 
 describe("객체 깊은 복사 테스트", () => {
-  it("중첩 객체 속성이 없는 일반 객체의 깊은 복사", () => {
+  it("원시값 속성만을 가진 객체의 깊은 복사", () => {
     const originalObject = {
       name: "John",
       age: 30,
       city: "New York",
+      married: false,
+      children: null,
+      symbol: Symbol("symbol"),
+      undefinedValue: undefined,
+      notInfinity: -Infinity,
+      infinity: Infinity,
+      notANumber: NaN,
+      bigInt: BigInt(1234567890),
     };
 
     const copiedObject = deepCopy(originalObject);
@@ -82,26 +90,6 @@ describe("객체 깊은 복사 테스트", () => {
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
     recursivelyCheckNestedProperties(originalObject, copiedObject);
-  });
-
-  it("모든 원시값들을 속성으로 가진 객체의 깊은 복사", () => {
-    // 혹시나... 굳이...
-    const originalObject = {
-      name: "John",
-      age: 30,
-      married: false,
-      children: null,
-      symbol: Symbol("symbol"),
-      undefinedValue: undefined,
-      notInfinity: -Infinity,
-      infinity: Infinity,
-      notANumber: NaN,
-      bigInt: BigInt(1234567890),
-    };
-
-    const copiedObject = deepCopy(originalObject);
-    expect(copiedObject).toEqual(originalObject);
-    expect(copiedObject).not.toBe(originalObject);
   });
 });
 

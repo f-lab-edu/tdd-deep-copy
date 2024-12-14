@@ -45,10 +45,38 @@ describe("배열 깊은 복사 테스트", () => {
   });
 
   it("빈 배열 깊은 복사", () => {
-    const originalArray: any = [];
+    const originalArray: any = []; // 질문!
 
     const copiedObject = deepCopy(originalArray);
     expect(copiedObject).toEqual(originalArray);
     expect(copiedObject).not.toBe(originalArray);
+  });
+
+  it("객체 속성이 포함된 배열 깊은 복사", () => {
+    const originalArray = [
+      {
+        name: "John",
+        age: 30,
+        address: {
+          street: "123 Main St",
+          city: "New York",
+          country: "USA",
+        },
+      },
+      {
+        name: "Jane",
+        age: 28,
+        address: {
+          street: "456 Main St",
+          city: "Los Angeles",
+          country: "USA",
+        },
+      },
+    ];
+
+    const copiedObject = deepCopy(originalArray);
+    expect(copiedObject).toEqual(originalArray);
+    expect(copiedObject).not.toBe(originalArray);
+    recursivelyCheckNestedProperties(originalArray, copiedObject);
   });
 });

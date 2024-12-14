@@ -1,4 +1,5 @@
 import deepCopy from "../src/index";
+import { recursivelyCheckNestedProperties } from "./recursivelyCheckNestedProperties";
 
 describe("객체 깊은 복사 테스트", () => {
   it("원시값 속성만을 가진 객체의 깊은 복사", () => {
@@ -92,19 +93,3 @@ describe("객체 깊은 복사 테스트", () => {
     recursivelyCheckNestedProperties(originalObject, copiedObject);
   });
 });
-
-const recursivelyCheckNestedProperties = (
-  originalObject: any,
-  copiedObject: any
-) => {
-  for (const key in originalObject) {
-    if (
-      typeof originalObject[key] === "object" &&
-      originalObject[key] !== null
-    ) {
-      expect(copiedObject[key]).toEqual(originalObject[key]);
-      expect(copiedObject[key]).not.toBe(originalObject[key]);
-      recursivelyCheckNestedProperties(originalObject[key], copiedObject[key]);
-    }
-  }
-};

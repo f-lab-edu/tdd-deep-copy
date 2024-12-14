@@ -31,6 +31,14 @@ describe("객체 깊은 복사 테스트", () => {
     expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
     recursivelyCheckNestedProperties(originalObject, copiedObject);
   });
+
+  it("빈 객체 깊은 복사", () => {
+    const originalObject = {};
+
+    const copiedObject = deepCopy(originalObject);
+    expect(copiedObject).toEqual(originalObject); // 원본 객체와 복사된 객체가 동일한 값을 가짐
+    expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
+  });
 });
 
 const recursivelyCheckNestedProperties = (

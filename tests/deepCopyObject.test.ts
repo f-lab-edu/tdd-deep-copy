@@ -2,7 +2,6 @@ import deepCopy from "../src/index";
 
 describe("객체 깊은 복사 테스트", () => {
   it("중첩 객체 속성이 없는 일반 객체의 깊은 복사", () => {
-    // 원본 객체
     const originalObject = {
       name: "John",
       age: 30,
@@ -15,7 +14,6 @@ describe("객체 깊은 복사 테스트", () => {
   });
 
   it("중첩 객체 속성이 있는 객체의 깊은 복사", () => {
-    // 원본 객체
     const originalObject = {
       name: "John",
       age: 30,
@@ -27,21 +25,20 @@ describe("객체 깊은 복사 테스트", () => {
     };
 
     const copiedObject = deepCopy(originalObject);
-    expect(copiedObject).toEqual(originalObject); // 원본 객체와 복사된 객체가 동일한 값을 가짐
-    expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
-    recursivelyCheckNestedProperties(originalObject, copiedObject);
+    expect(copiedObject).toEqual(originalObject);
+    expect(copiedObject).not.toBe(originalObject);
+    recursivelyCheckNestedProperties(originalObject, copiedObject); // 중첩 객체 속성 테스트
   });
 
   it("빈 객체 깊은 복사", () => {
     const originalObject = {};
 
     const copiedObject = deepCopy(originalObject);
-    expect(copiedObject).toEqual(originalObject); // 원본 객체와 복사된 객체가 동일한 값을 가짐
-    expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
+    expect(copiedObject).toEqual(originalObject);
+    expect(copiedObject).not.toBe(originalObject);
   });
 
   it("2차 이상 중첩 객체 속성이 있는 객체의 깊은 복사", () => {
-    // 원본 객체
     const originalObject = {
       name: "John",
       age: 30,
@@ -68,13 +65,12 @@ describe("객체 깊은 복사 테스트", () => {
     };
 
     const copiedObject = deepCopy(originalObject);
-    expect(copiedObject).toEqual(originalObject); // 원본 객체와 복사된 객체가 동일한 값을 가짐
-    expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
-    recursivelyCheckNestedProperties(originalObject, copiedObject); // 중첩 객체 속성 테스트
+    expect(copiedObject).toEqual(originalObject);
+    expect(copiedObject).not.toBe(originalObject);
+    recursivelyCheckNestedProperties(originalObject, copiedObject);
   });
 
   it("배열 포함된 객체의 깊은 복사", () => {
-    // 원본 객체
     const originalObject = {
       name: "John",
       age: 30,
@@ -83,9 +79,29 @@ describe("객체 깊은 복사 테스트", () => {
     };
 
     const copiedObject = deepCopy(originalObject);
-    expect(copiedObject).toEqual(originalObject); // 원본 객체와 복사된 객체가 동일한 값을 가짐
-    expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
-    recursivelyCheckNestedProperties(originalObject, copiedObject); // 중첩 객체 속성 테스트
+    expect(copiedObject).toEqual(originalObject);
+    expect(copiedObject).not.toBe(originalObject);
+    recursivelyCheckNestedProperties(originalObject, copiedObject);
+  });
+
+  it("모든 원시값들을 속성으로 가진 객체의 깊은 복사", () => {
+    // 혹시나... 굳이...
+    const originalObject = {
+      name: "John",
+      age: 30,
+      married: false,
+      children: null,
+      symbol: Symbol("symbol"),
+      undefinedValue: undefined,
+      notInfinity: -Infinity,
+      infinity: Infinity,
+      notANumber: NaN,
+      bigInt: BigInt(1234567890),
+    };
+
+    const copiedObject = deepCopy(originalObject);
+    expect(copiedObject).toEqual(originalObject);
+    expect(copiedObject).not.toBe(originalObject);
   });
 });
 

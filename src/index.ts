@@ -1,5 +1,16 @@
 const deepCopy = (obj: any) => {
-  const newObj = { ...obj };
+  let newObj;
+
+  if (obj === null || typeof obj !== "object") {
+    newObj = obj;
+  } else if (Array.isArray(obj)) {
+    // 배열
+    newObj = [...obj];
+  } else if (typeof obj === "object" && obj !== null) {
+    // 객체
+    newObj = { ...obj };
+  }
+
   for (const key in newObj) {
     if (typeof newObj[key] === "object" && newObj[key] !== null) {
       Array.isArray(newObj[key])

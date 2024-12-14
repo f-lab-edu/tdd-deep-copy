@@ -43,4 +43,12 @@ describe("배열 깊은 복사 테스트", () => {
     expect(copiedObject).not.toBe(originalArray);
     recursivelyCheckNestedProperties(originalArray, copiedObject); // 중첩 배열 속성 테스트
   });
+
+  it("빈 배열 깊은 복사", () => {
+    const originalArray: any = [];
+
+    const copiedObject = deepCopy(originalArray);
+    expect(copiedObject).toEqual(originalArray);
+    expect(copiedObject).not.toBe(originalArray);
+  });
 });

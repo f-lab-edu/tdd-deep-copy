@@ -14,9 +14,7 @@ const deepCopy = (obj: any) => {
   for (const key in newObj) {
     if (typeof newObj[key] === "object" && newObj[key] !== null) {
       Array.isArray(newObj[key])
-        ? (newObj[key] = newObj[key].map((item: any) =>
-            Array.isArray(item) ? deepCopy(item) : item
-          ))
+        ? (newObj[key] = newObj[key].map((item: any) => deepCopy(item)))
         : (newObj[key] = deepCopy(newObj[key]));
     }
   }

@@ -83,7 +83,6 @@ const recursivelyCheckNestedProperties = (
       typeof originalObject[key] === "object" &&
       originalObject[key] !== null
     ) {
-      console.log(copiedObject[key]);
       expect(copiedObject[key]).toEqual(originalObject[key]);
       expect(copiedObject[key]).not.toBe(originalObject[key]);
       recursivelyCheckNestedProperties(originalObject[key], copiedObject[key]);

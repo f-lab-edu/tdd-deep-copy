@@ -1,4 +1,4 @@
-const deepCopy = (obj: any) => {
+export const deepCopy = (obj: any) => {
   let newObj;
 
   if (obj === null || typeof obj !== "object") {
@@ -20,5 +20,3 @@ const deepCopy = (obj: any) => {
   }
   return newObj;
 };
-
-export default deepCopy;

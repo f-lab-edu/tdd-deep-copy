@@ -1,4 +1,4 @@
-import deepCopy from "../src/index";
+import { deepCopy } from "../src/index";
 import { recursivelyCheckNestedProperties } from "./recursivelyCheckNestedProperties";
 
 describe("배열 깊은 복사 테스트", () => {
@@ -45,7 +45,7 @@ describe("배열 깊은 복사 테스트", () => {
   });
 
   it("빈 배열 깊은 복사", () => {
-    const originalArray: any = []; // 질문!
+    const originalArray: [] = [];
 
     const copiedObject = deepCopy(originalArray);
     expect(copiedObject).toEqual(originalArray);

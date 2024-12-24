@@ -1,7 +1,9 @@
 export const deepCopy = (obj: any) => {
   let newObj;
 
-  if (obj === null || typeof obj !== "object") {
+  if (obj instanceof Date) {
+    return new Date(obj);
+  } else if (obj === null || typeof obj !== "object") {
     newObj = obj;
   } else if (Array.isArray(obj)) {
     // 배열

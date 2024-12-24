@@ -64,4 +64,16 @@ describe("객체 깊은 복사 테스트", () => {
     expect(originalMap.get("b")).toBe(2);
     expect(originalMap.get("c")).not.toBe(5);
   });
+
+  it("WeakMap, WeakSet 복사 시도 시에는 에러 발생", () => {
+    const originalWeakMap = new WeakMap();
+    const originalWeakSet = new WeakSet();
+
+    expect(() => deepCopy(originalWeakMap)).toThrow(
+      Error("WeakSet, WeakMap은 복사할 수 없습니다.")
+    );
+    expect(() => deepCopy(originalWeakSet)).toThrow(
+      Error("WeakSet, WeakMap은 복사할 수 없습니다.")
+    );
+  });
 });

@@ -1,7 +1,9 @@
 export const deepCopy = (obj: any) => {
   let newObj;
 
-  if (obj instanceof Date) {
+  if (obj instanceof WeakMap || obj instanceof WeakSet) {
+    throw new Error("WeakSet, WeakMap은 복사할 수 없습니다.");
+  } else if (obj instanceof Date) {
     return new Date(obj);
   } else if (obj instanceof RegExp) {
     return new RegExp(obj);

@@ -7,6 +7,8 @@ export const deepCopy = (obj: any) => {
     return new RegExp(obj);
   } else if (obj instanceof Set) {
     return new Set(obj);
+  } else if (obj instanceof Map) {
+    return new Map(obj);
   } else if (obj === null || typeof obj !== "object") {
     newObj = obj;
   } else if (Array.isArray(obj)) {

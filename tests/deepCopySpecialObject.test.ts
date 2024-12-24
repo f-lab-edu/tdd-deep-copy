@@ -5,12 +5,10 @@ describe("객체 깊은 복사 테스트", () => {
     const originalDate = new Date();
     const copiedDate = deepCopy(originalDate);
 
-    // 복사한 객체의 기본 값 확인
     expect(copiedDate instanceof Date).toBe(true);
     expect(copiedDate).toEqual(originalDate);
     expect(copiedDate).not.toBe(originalDate);
 
-    // 복사 객체 값 변경 시 원본 객체에 영향 X
     copiedDate.setFullYear(copiedDate.getFullYear() + 1);
     expect(copiedDate.getFullYear()).not.toEqual(originalDate.getFullYear());
     copiedDate.setMonth(copiedDate.getMonth() + 1);
@@ -45,5 +43,25 @@ describe("객체 깊은 복사 테스트", () => {
     copiedSet.delete(4);
     expect(originalSet.has(6)).toBe(false);
     expect(originalSet.has(4)).toBe(true);
+  });
+
+  it("Map 객체 깊은 복사", () => {
+    const originalMap = new Map([
+      ["a", 1],
+      ["b", 2],
+      ["c", 3],
+    ]);
+    const copiedMap = deepCopy(originalMap);
+
+    expect(copiedMap instanceof Map).toBe(true);
+    expect(copiedMap).toEqual(originalMap);
+    expect(copiedMap).not.toBe(originalMap);
+
+    copiedMap.set("d", 4);
+    copiedMap.delete("b");
+    copiedMap.set("c", 5);
+    expect(originalMap.has("d")).toBe(false);
+    expect(originalMap.get("b")).toBe(2);
+    expect(originalMap.get("c")).not.toBe(5);
   });
 });

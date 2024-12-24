@@ -23,4 +23,13 @@ describe("객체 깊은 복사 테스트", () => {
     );
     expect(copiedDate.getTime()).not.toBe(originalDate.getTime());
   });
+
+  it("정규표현식 객체 깊은 복사", () => {
+    const originalRegEx = /abc/gi;
+    const copiedRegEx = deepCopy(originalRegEx);
+
+    expect(copiedRegEx instanceof RegExp).toBe(true);
+    expect(copiedRegEx).toEqual(originalRegEx);
+    expect(copiedRegEx).not.toBe(originalRegEx);
+  });
 });

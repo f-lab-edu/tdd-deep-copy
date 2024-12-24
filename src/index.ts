@@ -3,6 +3,8 @@ export const deepCopy = (obj: any) => {
 
   if (obj instanceof Date) {
     return new Date(obj);
+  } else if (obj instanceof RegExp) {
+    return new RegExp(obj);
   } else if (obj === null || typeof obj !== "object") {
     newObj = obj;
   } else if (Array.isArray(obj)) {

@@ -32,4 +32,18 @@ describe("객체 깊은 복사 테스트", () => {
     expect(copiedRegEx).toEqual(originalRegEx);
     expect(copiedRegEx).not.toBe(originalRegEx);
   });
+
+  it("Set 객체 깊은 복사", () => {
+    const originalSet = new Set([1, 2, 3, 4, 5]);
+    const copiedSet = deepCopy(originalSet);
+
+    expect(copiedSet instanceof Set).toBe(true);
+    expect(copiedSet).toEqual(originalSet);
+    expect(copiedSet).not.toBe(originalSet);
+
+    copiedSet.add(6);
+    copiedSet.delete(4);
+    expect(originalSet.has(6)).toBe(false);
+    expect(originalSet.has(4)).toBe(true);
+  });
 });

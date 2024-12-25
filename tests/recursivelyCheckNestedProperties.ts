@@ -12,7 +12,7 @@ export const recursivelyCheckNestedProperties = (
 
   for (const key in originalObject) {
     if (typeof originalObject[key] === "function") {
-      expect(copiedObject[key].toString()).toBe(originalObject[key].toString()); // fail
+      expect(copiedObject[key].toString()).toBe(originalObject[key].toString());
     } else if (
       typeof originalObject[key] === "object" &&
       originalObject[key] !== null

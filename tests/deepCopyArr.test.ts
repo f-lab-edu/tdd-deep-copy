@@ -25,7 +25,7 @@ describe("배열 깊은 복사 테스트", () => {
   });
 
   it("중첩 배열 속성이 있는 배열의 깊은 복사", () => {
-    const originalArray = [
+    const originalArray: any = [
       1,
       "John",
       true,
@@ -48,6 +48,9 @@ describe("배열 깊은 복사 테스트", () => {
     expect(copiedObject).toEqual(originalArray);
     expect(copiedObject).not.toBe(originalArray);
     recursivelyCheckNestedProperties(originalArray, copiedObject); // 중첩 배열 속성 테스트
+
+    copiedObject[10].push(4);
+    expect(originalArray[10].length).toBe(3);
   });
 
   it("빈 배열 깊은 복사", () => {
@@ -62,7 +65,7 @@ describe("배열 깊은 복사 테스트", () => {
   });
 
   it("객체 속성이 포함된 배열 깊은 복사", () => {
-    const originalArray = [
+    const originalArray: any = [
       {
         name: "John",
         age: 30,
@@ -90,5 +93,19 @@ describe("배열 깊은 복사 테스트", () => {
     expect(copiedObject).toEqual(originalArray);
     expect(copiedObject).not.toBe(originalArray);
     recursivelyCheckNestedProperties(originalArray, copiedObject);
+
+    copiedObject[0].address.city = "Chicago";
+    expect(originalArray[0].address.city).toBe("New York");
+
+    copiedObject.push({
+      name: "춘식이",
+      age: 2,
+      address: {
+        street: "몰라",
+        city: "서울특별시",
+        country: "대한민국",
+      },
+    });
+    expect(originalArray.length).toBe(2);
   });
 });

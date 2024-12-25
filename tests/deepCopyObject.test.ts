@@ -3,7 +3,7 @@ import { recursivelyCheckNestedProperties } from "./recursivelyCheckNestedProper
 
 describe("객체 깊은 복사 테스트", () => {
   it("원시값 속성만을 가진 객체의 깊은 복사", () => {
-    const originalObject = {
+    const originalObject: any = {
       name: "John",
       age: 30,
       city: "New York",
@@ -23,6 +23,12 @@ describe("객체 깊은 복사 테스트", () => {
     );
     expect(copiedObject).toEqual(originalObject); // 원본 객체와 복사된 객체가 동일한 값을 가짐
     expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
+
+    copiedObject.name = "Jane";
+    expect(originalObject.name).toBe("John");
+
+    copiedObject.children = ["Alice", "Bob"];
+    expect(originalObject.children).toBeNull();
   });
 
   it("중첩 객체 속성이 있는 객체의 깊은 복사", () => {
@@ -43,6 +49,9 @@ describe("객체 깊은 복사 테스트", () => {
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
     recursivelyCheckNestedProperties(originalObject, copiedObject); // 중첩 객체 속성 테스트
+
+    copiedObject.address.city = "Los Angeles";
+    expect(originalObject.address.city).toBe("New York");
   });
 
   it("빈 객체 깊은 복사", () => {
@@ -89,6 +98,9 @@ describe("객체 깊은 복사 테스트", () => {
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
     recursivelyCheckNestedProperties(originalObject, copiedObject);
+
+    copiedObject.career.first.company = "GHI Inc";
+    expect(originalObject.career.first.company).toBe("ABC Inc");
   });
 
   it("배열 포함된 객체의 깊은 복사", () => {
@@ -106,5 +118,8 @@ describe("객체 깊은 복사 테스트", () => {
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
     recursivelyCheckNestedProperties(originalObject, copiedObject);
+
+    copiedObject.hobbies.push("cooking");
+    expect(originalObject.hobbies).toHaveLength(3);
   });
 });

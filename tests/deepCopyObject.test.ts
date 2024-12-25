@@ -16,8 +16,11 @@ describe("객체 깊은 복사 테스트", () => {
       notANumber: NaN,
       bigInt: BigInt(1234567890),
     };
-
     const copiedObject = deepCopy(originalObject);
+
+    expect(Object.getPrototypeOf(originalObject)).toBe(
+      Object.getPrototypeOf(copiedObject)
+    );
     expect(copiedObject).toEqual(originalObject); // 원본 객체와 복사된 객체가 동일한 값을 가짐
     expect(copiedObject).not.toBe(originalObject); // 원본 객체와 복사된 객체가 동일한 객체가 아님
   });
@@ -32,8 +35,11 @@ describe("객체 깊은 복사 테스트", () => {
         country: "USA",
       },
     };
-
     const copiedObject = deepCopy(originalObject);
+
+    expect(Object.getPrototypeOf(originalObject)).toBe(
+      Object.getPrototypeOf(copiedObject)
+    );
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
     recursivelyCheckNestedProperties(originalObject, copiedObject); // 중첩 객체 속성 테스트
@@ -41,8 +47,11 @@ describe("객체 깊은 복사 테스트", () => {
 
   it("빈 객체 깊은 복사", () => {
     const originalObject = {};
-
     const copiedObject = deepCopy(originalObject);
+
+    expect(Object.getPrototypeOf(originalObject)).toBe(
+      Object.getPrototypeOf(copiedObject)
+    );
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
   });
@@ -72,8 +81,11 @@ describe("객체 깊은 복사 테스트", () => {
         },
       },
     };
-
     const copiedObject = deepCopy(originalObject);
+
+    expect(Object.getPrototypeOf(originalObject)).toBe(
+      Object.getPrototypeOf(copiedObject)
+    );
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
     recursivelyCheckNestedProperties(originalObject, copiedObject);
@@ -86,8 +98,11 @@ describe("객체 깊은 복사 테스트", () => {
       city: "New York",
       hobbies: ["reading", "music", "traveling"],
     };
-
     const copiedObject = deepCopy(originalObject);
+
+    expect(Object.getPrototypeOf(originalObject)).toBe(
+      Object.getPrototypeOf(copiedObject)
+    );
     expect(copiedObject).toEqual(originalObject);
     expect(copiedObject).not.toBe(originalObject);
     recursivelyCheckNestedProperties(originalObject, copiedObject);

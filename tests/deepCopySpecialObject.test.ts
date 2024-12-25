@@ -5,6 +5,9 @@ describe("객체 깊은 복사 테스트", () => {
     const originalDate = new Date();
     const copiedDate = deepCopy(originalDate);
 
+    expect(Object.getPrototypeOf(originalDate)).toBe(
+      Object.getPrototypeOf(copiedDate)
+    );
     expect(copiedDate instanceof Date).toBe(true);
     expect(copiedDate).toEqual(originalDate);
     expect(copiedDate).not.toBe(originalDate);
@@ -30,6 +33,9 @@ describe("객체 깊은 복사 테스트", () => {
     const originalRegEx = /abc/gi;
     const copiedRegEx = deepCopy(originalRegEx);
 
+    expect(Object.getPrototypeOf(originalRegEx)).toBe(
+      Object.getPrototypeOf(copiedRegEx)
+    );
     expect(copiedRegEx instanceof RegExp).toBe(true);
     expect(copiedRegEx).toEqual(originalRegEx);
     expect(copiedRegEx).not.toBe(originalRegEx);
@@ -39,6 +45,9 @@ describe("객체 깊은 복사 테스트", () => {
     const originalSet = new Set([1, 2, 3, 4, 5]);
     const copiedSet = deepCopy(originalSet);
 
+    expect(Object.getPrototypeOf(originalSet)).toBe(
+      Object.getPrototypeOf(copiedSet)
+    );
     expect(copiedSet instanceof Set).toBe(true);
     expect(copiedSet).toEqual(originalSet);
     expect(copiedSet).not.toBe(originalSet);
@@ -57,6 +66,9 @@ describe("객체 깊은 복사 테스트", () => {
     ]);
     const copiedMap = deepCopy(originalMap);
 
+    expect(Object.getPrototypeOf(originalMap)).toBe(
+      Object.getPrototypeOf(copiedMap)
+    );
     expect(copiedMap instanceof Map).toBe(true);
     expect(copiedMap).toEqual(originalMap);
     expect(copiedMap).not.toBe(originalMap);
@@ -86,19 +98,19 @@ describe("객체 깊은 복사 테스트", () => {
       return a;
     }
     original.prop = "prop";
-    const copy = deepCopy(original);
+    const copied = deepCopy(original);
 
-    // 객체
-    expect(copy).not.toBe(original);
+    expect(Object.getPrototypeOf(copied)).toBe(Object.getPrototypeOf(original));
+    expect(copied).not.toBe(original);
 
     // 속성 추가, 변경
     original.prop = "변경된 prop";
     original.prop2 = "prop2";
-    expect(copy.prop).toBe("prop");
-    expect(copy.prop2).toBeUndefined();
+    expect(copied.prop).toBe("prop");
+    expect(copied.prop2).toBeUndefined();
 
     // 동작
-    expect(copy(1)).toEqual(original(1));
+    expect(copied(1)).toEqual(original(1));
   });
 
   it("순환 참조 깊은 복사", () => {
@@ -107,6 +119,7 @@ describe("객체 깊은 복사 테스트", () => {
     original.parent = { child: original };
     const copied = deepCopy(original);
 
+    expect(Object.getPrototypeOf(copied)).toBe(Object.getPrototypeOf(original));
     expect(copied).toEqual(original);
     expect(copied).not.toBe(original);
     expect(copied.self).toBe(copied);
@@ -125,6 +138,7 @@ describe("객체 깊은 복사 테스트", () => {
     const copied = deepCopy(original);
 
     expect(copied instanceof MyClass).toBe(true);
+    expect(Object.getPrototypeOf(copied)).toBe(Object.getPrototypeOf(original));
     expect(copied).toEqual(original);
     expect(copied).not.toBe(original);
 

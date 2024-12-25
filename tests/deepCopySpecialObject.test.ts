@@ -100,4 +100,16 @@ describe("객체 깊은 복사 테스트", () => {
     // 동작
     expect(copy(1)).toEqual(original(1));
   });
+
+  it("순환 참조 깊은 복사", () => {
+    const original: any = {};
+    original.self = original;
+    original.parent = { child: original };
+    const copied = deepCopy(original);
+
+    expect(copied).toEqual(original);
+    expect(copied).not.toBe(original);
+    expect(copied.self).toBe(copied);
+    expect(copied.parent.child).toBe(copied);
+  });
 });

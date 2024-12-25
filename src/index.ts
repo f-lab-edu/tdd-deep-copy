@@ -1,4 +1,4 @@
-export const deepCopy = (obj: any) => {
+export const deepCopy = (obj: any, seen = new WeakMap()) => {
   if (obj instanceof WeakMap || obj instanceof WeakSet) {
     throw new Error("WeakSet, WeakMap은 복사할 수 없습니다.");
   } else if (obj instanceof Date) {
@@ -17,6 +17,10 @@ export const deepCopy = (obj: any) => {
     return obj;
   }
 
+  if (seen.has(obj)) {
+    return seen.get(obj);
+  }
+
   let newObj;
 
   if (obj instanceof Array) {
@@ -27,11 +31,11 @@ export const deepCopy = (obj: any) => {
     newObj = { ...obj };
   }
 
+  seen.set(obj, newObj);
+
   for (const key in newObj) {
     if (typeof newObj[key] === "object" && newObj[key] !== null) {
-      Array.isArray(newObj[key])
-        ? (newObj[key] = newObj[key].map((item: any) => deepCopy(item)))
-        : (newObj[key] = deepCopy(newObj[key]));
+      newObj[key] = deepCopy(newObj[key], seen);
     }
   }
   return newObj;

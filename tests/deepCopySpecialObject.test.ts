@@ -1,4 +1,12 @@
 import { deepCopy } from "../src/index";
+import { recursivelyCheckNestedProperties } from "./recursivelyCheckNestedProperties";
+
+class TestClass {
+  constructor(public name: string, public age: number) {}
+  testMethod(a: any) {
+    return a;
+  }
+}
 
 describe("객체 깊은 복사 테스트", () => {
   it("Date 객체 깊은 복사", () => {
@@ -127,22 +135,36 @@ describe("객체 깊은 복사 테스트", () => {
   });
 
   it("class 깊은 복사", () => {
-    class MyClass {
-      constructor(public name: string, public age: number) {}
-      testMethod(a: any) {
-        return a;
-      }
-    }
-
-    const original = new MyClass("John", 30);
+    const original = new TestClass("John", 30);
     const copied = deepCopy(original);
 
-    expect(copied instanceof MyClass).toBe(true);
+    expect(copied instanceof TestClass).toBe(true);
     expect(Object.getPrototypeOf(copied)).toBe(Object.getPrototypeOf(original));
     expect(copied).toEqual(original);
     expect(copied).not.toBe(original);
 
     copied.name = "Jane";
     expect(original.name).toBe("John");
+  });
+
+  it("특수 객체 프로퍼티가 포함된 객체 깊은 복사", () => {
+    let original: any = {
+      map: new Map([["a", 1]]),
+      set: new Set([1, 2, "asdf", { a: 1 }]),
+      date: new Date(),
+      regExp: /abc/gi,
+      func: (a: any) => {
+        return a;
+      },
+      testClass: new TestClass("춘식이", 2),
+    };
+    original.refTest = original;
+    original.refTest.refTestChild = original;
+
+    const copied = deepCopy(original);
+
+    expect(Object.getPrototypeOf(copied)).toBe(Object.getPrototypeOf(original));
+    expect(copied).not.toBe(original);
+    recursivelyCheckNestedProperties(original, copied);
   });
 });

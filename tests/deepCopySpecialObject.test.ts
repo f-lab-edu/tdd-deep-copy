@@ -11,14 +11,18 @@ describe("객체 깊은 복사 테스트", () => {
 
     copiedDate.setFullYear(copiedDate.getFullYear() + 1);
     expect(copiedDate.getFullYear()).not.toEqual(originalDate.getFullYear());
+
     copiedDate.setMonth(copiedDate.getMonth() + 1);
     expect(copiedDate.getMonth()).not.toEqual(originalDate.getMonth());
+
     copiedDate.setDate(copiedDate.getDate() + 1);
     expect(copiedDate.getDate()).not.toEqual(originalDate.getDate());
+
     copiedDate.setMilliseconds(copiedDate.getMilliseconds() + 500);
     expect(copiedDate.getMilliseconds()).not.toBe(
       originalDate.getMilliseconds()
     );
+
     expect(copiedDate.getTime()).not.toBe(originalDate.getTime());
   });
 
@@ -75,5 +79,25 @@ describe("객체 깊은 복사 테스트", () => {
     expect(() => deepCopy(originalWeakSet)).toThrow(
       Error("WeakSet, WeakMap은 복사할 수 없습니다.")
     );
+  });
+
+  it("함수 깊은 복사", () => {
+    function original(a: any) {
+      return a;
+    }
+    original.prop = "prop";
+    const copy = deepCopy(original);
+
+    // 객체
+    expect(copy).not.toBe(original);
+
+    // 속성 추가, 변경
+    original.prop = "변경된 prop";
+    original.prop2 = "prop2";
+    expect(copy.prop).toBe("prop");
+    expect(copy.prop2).toBeUndefined();
+
+    // 동작
+    expect(copy(1)).toEqual(original(1));
   });
 });

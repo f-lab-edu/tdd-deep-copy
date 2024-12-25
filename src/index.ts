@@ -9,6 +9,10 @@ export const deepCopy = (obj: any) => {
     return new Set(obj);
   } else if (obj instanceof Map) {
     return new Map(obj);
+  } else if (obj instanceof Function) {
+    const newFunc = (...args: any) => obj(...args);
+    Object.assign(newFunc, obj);
+    return newFunc;
   } else if (obj === null || typeof obj !== "object") {
     return obj;
   }

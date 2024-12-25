@@ -10,8 +10,10 @@ export const deepCopy = <T>(obj: T, seen = new WeakMap()): T => {
   } else if (obj instanceof Map) {
     return new Map(obj) as T;
   } else if (obj instanceof Function) {
-    const newFunc = (...args: any) => obj(...args);
+    const newFuncStr = obj.toString();
+    const newFunc = new Function("return " + newFuncStr)();
     Object.assign(newFunc, obj);
+
     return newFunc as T;
   } else if (obj === null || typeof obj !== "object") {
     return obj;

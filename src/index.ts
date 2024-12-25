@@ -34,9 +34,7 @@ export const deepCopy = <T>(obj: T, seen = new WeakMap()): T => {
   seen.set(obj, newObj);
 
   for (const key in newObj) {
-    if (typeof newObj[key] === "object" && newObj[key] !== null) {
-      newObj[key] = deepCopy(newObj[key], seen);
-    }
+    newObj[key] = deepCopy(newObj[key], seen);
   }
   return newObj as T;
 };

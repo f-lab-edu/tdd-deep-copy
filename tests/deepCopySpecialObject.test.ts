@@ -112,4 +112,23 @@ describe("객체 깊은 복사 테스트", () => {
     expect(copied.self).toBe(copied);
     expect(copied.parent.child).toBe(copied);
   });
+
+  it("class 깊은 복사", () => {
+    class MyClass {
+      constructor(public name: string, public age: number) {}
+      testMethod(a: any) {
+        return a;
+      }
+    }
+
+    const original = new MyClass("John", 30);
+    const copied = deepCopy(original);
+
+    expect(copied instanceof MyClass).toBe(true);
+    expect(copied).toEqual(original);
+    expect(copied).not.toBe(original);
+
+    copied.name = "Jane";
+    expect(original.name).toBe("John");
+  });
 });
